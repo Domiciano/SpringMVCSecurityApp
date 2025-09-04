@@ -1,5 +1,6 @@
 package org.example.introspringboot.entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 
 import java.util.List;
@@ -11,10 +12,12 @@ public class Course {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
     private String name;
+    private int credits;
     @ManyToOne
     @JoinColumn(name = "professorId")
     private Professor professor;
 
+    @JsonIgnore
     @OneToMany(mappedBy = "course", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<StudentCourse> studentCourses;
 
@@ -24,6 +27,14 @@ public class Course {
     public Course(Integer id, String name) {
         this.id = id;
         this.name = name;
+    }
+
+    public int getCredits() {
+        return credits;
+    }
+
+    public void setCredits(int credits) {
+        this.credits = credits;
     }
 
     public Integer getId() {
