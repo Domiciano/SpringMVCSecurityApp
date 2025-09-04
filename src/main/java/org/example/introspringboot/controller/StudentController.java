@@ -1,7 +1,9 @@
 package org.example.introspringboot.controller;
 
 import org.example.introspringboot.entity.Student;
+import org.example.introspringboot.repository.AccountRepository;
 import org.example.introspringboot.repository.StudentRepository;
+import org.example.introspringboot.service.AccountService;
 import org.example.introspringboot.service.StudentService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
@@ -15,8 +17,18 @@ public class StudentController {
     @Autowired
     @Qualifier("studentServiceImpl")
     private StudentService studentService;
+
+    @Autowired
+    private AccountService accountService;
+
     @Autowired
     private StudentRepository studentRepository;
+
+    @GetMapping("transfer")
+    public String transfer(){
+        accountService.transferMoney(1L,2L, 300.0);
+        return "transfer";
+    }
 
     @GetMapping("count")
     public String getStudentCount() {
@@ -24,12 +36,7 @@ public class StudentController {
         return "Estudiantes: " + count;
     }
 
-    @GetMapping("ej1")
-    public ResponseEntity<?> ej1() {
-        return ResponseEntity.ok().body(
-                studentRepository.findByProgramAndCodeStartingWith("Ingenieria de Sistemas", "2021")
-        );
-    }
+
 
     @GetMapping("students")
     public String getStudents() {

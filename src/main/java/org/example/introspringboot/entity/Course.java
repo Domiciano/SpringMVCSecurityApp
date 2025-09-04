@@ -24,9 +24,10 @@ public class Course {
     public Course() {
     }
 
-    public Course(Integer id, String name) {
+    public Course(Integer id, String name, int credits) {
         this.id = id;
         this.name = name;
+        this.credits = credits;
     }
 
     public int getCredits() {
