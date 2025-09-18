@@ -38,5 +38,19 @@ public class StudentServiceImpl implements StudentService {
         return studentRepository.findByStudentCourses_Course_Name(name);
     }
 
+    @Override
+    public Optional<Student> findById(Integer id) {
+        return studentRepository.findById(id);
+    }
 
+    @Override
+    public Student save(Student student) {
+        return studentRepository.save(student);
+    }
+
+    @Override
+    public void deleteById(Integer id) {
+        studentRepository.deleteById(id);
+    }
 }
+
