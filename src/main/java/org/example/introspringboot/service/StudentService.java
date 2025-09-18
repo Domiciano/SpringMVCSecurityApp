@@ -14,4 +14,10 @@ public interface StudentService {
     Optional<Student> findStudentByCode(String code);
 
     List<Student> getStudentsByCourseName(String name);
+
+    Optional<Student> findById(Integer id);
+
+    Student save(Student student);
+
+    void deleteById(Integer id);
 }

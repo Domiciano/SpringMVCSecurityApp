@@ -1,13 +1,10 @@
 package org.example.introspringboot.controller;
 
 import org.example.introspringboot.entity.Student;
-import org.example.introspringboot.repository.AccountRepository;
 import org.example.introspringboot.repository.StudentRepository;
-import org.example.introspringboot.service.AccountService;
 import org.example.introspringboot.service.StudentService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
-import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RestController;
 
