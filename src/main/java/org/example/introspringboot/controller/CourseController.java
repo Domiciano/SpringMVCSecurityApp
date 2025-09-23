@@ -10,12 +10,10 @@ import org.example.introspringboot.service.StudentService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.Optional;
 
 @Controller
 @RequestMapping("courses")
@@ -32,6 +30,8 @@ public class CourseController {
     public String getStudents(Model model) {
         List<Course> courseList = courseService.findAll();
         model.addAttribute("courseList", courseList);
+        model.addAttribute("course", new Course());
+        model.addAttribute("professorList", professorService.findAll());
         return "course/course-list";
     }
     @PostMapping("/save")
@@ -39,6 +39,18 @@ public class CourseController {
     public String saveStudent(@ModelAttribute Course course) {
         courseService.save(course);
         return "redirect:/courses/";
+    }
+
+    @GetMapping("/{id}")
+    public String courseDetail(@PathVariable("id") Integer id, Model model) {
+        Optional<Course> course = courseService.findById(id);
+        if(course.isPresent()){
+            model.addAttribute("course", course.get());
+            return "course/course-detail";
+        }else{
+            return "error/404";
+        }
+
     }
 
 }
