@@ -15,20 +15,13 @@ public class WebSecurityConfig {
     public UserDetailsService userDetailsService() {
         InMemoryUserDetailsManager userDetailsMngr = new InMemoryUserDetailsManager();
 
-        UserDetails user = User.withUsername("domi")
-                .password("12345")
+        UserDetails user = User.withUsername("domic0620")
+                .password("123456")
                 .authorities("read")
                 .build();
-        userDetailsMngr.createUser(user);
 
+        userDetailsMngr.createUser(user);
         return userDetailsMngr;
     }
-
-    @Bean
-    public PasswordEncoder passwordEncoder() {
-        return NoOpPasswordEncoder.getInstance();
-    }
-
-
 }
 
