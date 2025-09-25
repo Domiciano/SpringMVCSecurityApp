@@ -24,3 +24,19 @@ INSERT INTO students_courses (student_id, course_id) VALUES (4, 5), (4, 8); -- S
 INSERT INTO students_courses (student_id, course_id) VALUES (5, 7); -- David (Arquitectura) en Dibujo Tecnico
 INSERT INTO students_courses (student_id, course_id) VALUES (6, 8); -- Valentina (Diseño) en Historia del Arte
 INSERT INTO students_courses (student_id, course_id) VALUES (7, 3); -- Camila (Medicina) en Anatomia
+
+-- Roles
+INSERT INTO roles (id, name) VALUES (1, 'ROLE_STUDENT'), (2, 'ROLE_PROFESSOR');
+
+-- Permissions
+INSERT INTO permissions (id, name) VALUES (1, 'VIEW_COURSES'), (2, 'VIEW_OWN_COURSES'), (3, 'EDIT_COURSES'), (4, 'VIEW_STUDENTS');
+
+-- Users
+INSERT INTO users (id, username, password) VALUES (1, 'estudiante1@gmail.com', 'estudiante'), (2, 'profesor1@gmail.com', 'profesor');
+
+-- User-Roles
+INSERT INTO user_roles (user_id, role_id) VALUES (1, 1), (2, 2);
+
+-- Role-Permissions
+INSERT INTO role_permissions (role_id, permission_id) VALUES (1, 2);
+INSERT INTO role_permissions (role_id, permission_id) VALUES (2, 1), (2, 3), (2, 4);
