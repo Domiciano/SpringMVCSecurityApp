@@ -11,17 +11,10 @@ import org.springframework.security.provisioning.InMemoryUserDetailsManager;
 
 @Configuration
 public class WebSecurityConfig {
+
     @Bean
-    public UserDetailsService userDetailsService() {
-        InMemoryUserDetailsManager userDetailsMngr = new InMemoryUserDetailsManager();
-
-        UserDetails user = User.withUsername("domic0620")
-                .password("123456")
-                .authorities("read")
-                .build();
-
-        userDetailsMngr.createUser(user);
-        return userDetailsMngr;
+    public PasswordEncoder passwordEncoder() {
+        return NoOpPasswordEncoder.getInstance();
     }
 }
 
