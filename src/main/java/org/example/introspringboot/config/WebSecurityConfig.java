@@ -46,12 +46,10 @@ public class WebSecurityConfig {
     public SecurityFilterChain appSecurityFilterChain(HttpSecurity http) throws Exception {
         http.authorizeHttpRequests(auth -> auth
                 .requestMatchers("/auth/signup").permitAll()
-                .requestMatchers("/students/").hasAnyRole("STUDENT")
-                .requestMatchers("/students/").hasAnyAuthority("PERMISSION_VIEW_COURSES")
                 .anyRequest().authenticated()
         ).formLogin(login -> login
                 .loginPage("/auth/login")
-                .defaultSuccessUrl("/", true)
+                .defaultSuccessUrl("/user/me", true)
                 .permitAll()
         );
         return http.build();
