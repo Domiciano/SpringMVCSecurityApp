@@ -12,5 +12,10 @@
     <li th:each="auth : ${authorities}"
         th:text="${auth.authority}"></li>
 </ul>
+
+<form th:action="@{/logout}" method="post">
+    <button>Cerrar Sesión</button>
+</form>
+
 </body>
 </html>

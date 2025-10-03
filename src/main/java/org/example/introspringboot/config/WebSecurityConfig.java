@@ -3,6 +3,7 @@ package org.example.introspringboot.config;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.core.annotation.Order;
+import org.springframework.security.config.annotation.method.configuration.EnableMethodSecurity;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.core.userdetails.User;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -17,6 +18,7 @@ import static org.springframework.boot.autoconfigure.security.servlet.PathReques
 import static org.springframework.security.config.Customizer.withDefaults;
 
 @Configuration
+@EnableMethodSecurity
 public class WebSecurityConfig {
 
     @Bean
@@ -50,6 +52,12 @@ public class WebSecurityConfig {
         ).formLogin(login -> login
                 .loginPage("/auth/login")
                 .defaultSuccessUrl("/user/me", true)
+                .permitAll()
+        ).logout(logout -> logout
+                .logoutUrl("/logout")
+                .logoutSuccessUrl("/auth/login?logout")
+                .invalidateHttpSession(true)
+                .deleteCookies("JSESSIONID")
                 .permitAll()
         );
         return http.build();
