@@ -47,6 +47,7 @@ public class WebSecurityConfig {
     @Order(2)
     public SecurityFilterChain appSecurityFilterChain(HttpSecurity http) throws Exception {
         http.authorizeHttpRequests(auth -> auth
+                .requestMatchers("/api/v1/**").permitAll()
                 .requestMatchers("/auth/signup").permitAll()
                 .anyRequest().authenticated()
         ).formLogin(login -> login
