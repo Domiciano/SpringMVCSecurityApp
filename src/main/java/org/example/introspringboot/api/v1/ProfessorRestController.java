@@ -35,6 +35,8 @@ public class ProfessorRestController {
     @DeleteMapping("/{id}")
     public ResponseEntity<?> deleteProfessor(@PathVariable("id") Integer id) {
         professorService.deleteById(id);
+        var response = Map.of("message", "Professor deleted successfully");
+        return ResponseEntity.status(200).body(response);
     }
 
 
