@@ -1,6 +1,8 @@
 package org.example.introspringboot.service.impl;
 
+import org.example.introspringboot.api.v1.dto.ProfessorDTO;
 import org.example.introspringboot.entity.Professor;
+import org.example.introspringboot.mappers.ProfessorMapper;
 import org.example.introspringboot.repository.ProfessorRepository;
 import org.example.introspringboot.service.ProfessorService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -14,20 +16,26 @@ public class ProfessorServiceImpl implements ProfessorService {
 
     @Autowired
     private ProfessorRepository professorRepository;
+    @Autowired
+    private ProfessorMapper professorMapper;
 
     @Override
-    public List<Professor> findAll() {
-        return professorRepository.findAll();
+    public List<ProfessorDTO> findAll() {
+        return professorRepository.findAll().stream().map(
+                professor -> professorMapper.toDto(professor)
+        ).toList();
     }
 
     @Override
-    public Optional<Professor> findById(Integer id) {
-        return professorRepository.findById(id);
+    public ProfessorDTO findById(Integer id) {
+        return professorRepository.findById(id).map(p -> professorMapper.toDto(p)).orElse(null);
     }
 
     @Override
-    public Professor save(Professor professor) {
-        return professorRepository.save(professor);
+    public ProfessorDTO save(ProfessorDTO professorDto) {
+        var professor = professorRepository.save(professorMapper.toEntity(professorDto));
+        professorDto.setId(professor.getId());
+        return professorDto;
     }
 
     @Override
