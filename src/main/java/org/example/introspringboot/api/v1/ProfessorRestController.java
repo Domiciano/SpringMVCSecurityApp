@@ -1,5 +1,7 @@
 package org.example.introspringboot.api.v1;
 
+import org.example.introspringboot.api.v1.dto.MessageResponse;
+import org.example.introspringboot.api.v1.dto.ProfessorDTO;
 import org.example.introspringboot.entity.Professor;
 import org.example.introspringboot.service.ProfessorService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -25,9 +27,9 @@ public class ProfessorRestController {
     }
 
     @PostMapping
-    public ResponseEntity<?> saveProfessor(@RequestBody Professor professor) {
-        var result = professorService.save(professor);
-        var response = Map.of("message", "Professor saved successfully");
+    public ResponseEntity<?> saveProfessor(@RequestBody ProfessorDTO professorDTO) {
+        var result = professorService.save(professorDTO);
+        var response = new MessageResponse("Professor saved successfully");
         return ResponseEntity.status(200).body(response);
     }
 
