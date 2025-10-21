@@ -51,6 +51,7 @@ public class TokenValitationFilter extends OncePerRequestFilter {
                         new UsernamePasswordAuthenticationToken(
                                 email, null, grantedAuthorities
                         );
+                    SecurityContextHolder.getContext().setAuthentication(token); //<-- Aqui autentico la request
 
                 filterChain.doFilter(request, response);
             }catch (Exception e){

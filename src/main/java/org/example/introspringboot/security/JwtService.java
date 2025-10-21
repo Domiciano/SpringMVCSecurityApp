@@ -31,7 +31,7 @@ public class JwtService {
                 .setSubject(userDetails.getUsername())
                 .setIssuedAt(now)
                 .setExpiration(expiry)
-                .setClaims(
+                .addClaims(
                         createClaims(
                                 userDetails
                         )
