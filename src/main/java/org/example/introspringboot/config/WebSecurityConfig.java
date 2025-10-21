@@ -1,5 +1,6 @@
 package org.example.introspringboot.config;
 
+import jakarta.servlet.http.HttpServletResponse;
 import org.example.introspringboot.filter.TokenValitationFilter;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
@@ -64,13 +65,26 @@ public class WebSecurityConfig {
         http
                 .securityMatcher("/api/v1/**")
                 .authorizeHttpRequests(auth -> auth
-                .requestMatchers("/api/v1/**").permitAll()
+                .requestMatchers("/api/v1/auth/login").permitAll()
+                        .anyRequest().authenticated()
         )
                 .addFilterBefore(tokenValitationFilter, UsernamePasswordAuthenticationFilter.class)
                 .sessionManagement(
                 sessionManagement -> sessionManagement
                         .sessionCreationPolicy(SessionCreationPolicy.STATELESS))
-                .csrf(csrf -> csrf.disable());
+                .csrf(csrf -> csrf.disable())
+                .exceptionHandling(ex -> ex
+                        .authenticationEntryPoint((request, response, authException) -> {
+                            response.setStatus(HttpServletResponse.SC_UNAUTHORIZED);
+                            response.setContentType("application/json");
+                            response.getWriter().write("{\"error\": \"Unauthorized\"}");
+                        })
+                        .accessDeniedHandler((request, response, accessDeniedException) -> {
+                            response.setStatus(HttpServletResponse.SC_FORBIDDEN);
+                            response.setContentType("application/json");
+                            response.getWriter().write("{\"error\": \"Forbidden\"}");
+                        })
+                );;
 
         return http.build();
     }

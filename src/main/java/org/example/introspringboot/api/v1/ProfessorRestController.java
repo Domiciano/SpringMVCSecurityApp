@@ -7,6 +7,7 @@ import org.example.introspringboot.service.ProfessorService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.HashMap;
@@ -21,6 +22,8 @@ public class ProfessorRestController {
     private ProfessorService professorService;
 
     @GetMapping
+    @PreAuthorize("hasAuthority('ROLE_PROFESSOR')")
+    //@PreAuthorize("hasRole('PROFESSOR')")
     public ResponseEntity<?> getProfessors() {
         var professors = professorService.findAll();
         return ResponseEntity.status(200).body(professors);
