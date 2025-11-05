@@ -10,6 +10,8 @@ import java.util.Optional;
 
 public interface CourseRepository extends JpaRepository<Course, Integer> {
 
+    List<Course> findByStudentCourses_Student_Id(Integer studentId);
+
     Optional<Course> findFirstByOrderByNameAsc();
 
     List<Course> findTop2ByOrderByCreditsDesc();
